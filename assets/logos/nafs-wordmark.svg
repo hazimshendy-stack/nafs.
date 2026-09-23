@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100">
 <rect width="320" height="100" fill="#0A0A0A"/>
-<text x="40" y="65" font-family="Tajawal, sans-serif" font-size="52" font-weight="900" fill="#FFFFFF">ن</text>
-<text x="110" y="65" font-family="Tajawal, sans-serif" font-size="52" font-weight="900" fill="#00C271">ف</text>
-<text x="180" y="65" font-family="Tajawal, sans-serif" font-size="52" font-weight="900" fill="#FFFFFF">س</text>
-</svg>
+<text x="40" y="65" font-family="Tajawal" font-size="52" font-weight="900" fill="#FFF">ن</text>
+<text x="110" y="65" font-family="Tajawal" font-size="52" font-weight="900" fill="#00FF88">ف</text>
+<text x="180" y="65" font-family="Tajawal" font-size="52" font-weight="900" fill="#FFF">س</text></svg>

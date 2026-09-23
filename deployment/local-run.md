@@ -1,14 +1,4 @@
-# Local Run
+# Local
 
-```bash
-node setup.js
+node fix.cjs
 python -m http.server 8080
-```
-
-أو:
-
-```bash
-npx serve .
-```
-
-ثم افتح: http://localhost:8080
