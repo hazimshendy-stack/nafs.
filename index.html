@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0A0A0A" />
+<meta name="description" content="نفس — عرض مؤسسي شامل لمؤسسة الصحة النفسية والبنية التحتية الرقمية الآمنة" />
+<title>نفس · Nafs — Presentation</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+<link rel="apple-touch-icon" href="assets/icons/icon-192.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">ن</span>
+    <span class="brand-name">نفس</span>
+    <span class="brand-tag">Working Name</span>
+  </div>
+  <nav class="topnav">
+    <button id="btn-overview" class="btn-ghost" aria-label="عرض الفصول">الفصول</button>
+    <button id="btn-info" class="btn-ghost" aria-label="معلومات">حول</button>
+  </nav>
+</header>
+
+<main id="deck" class="deck" aria-live="polite"></main>
+
+<footer class="bottombar">
+  <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+  <div class="nav-row">
+    <button id="btn-prev" class="btn-nav" aria-label="السابق">‹</button>
+    <div class="meta">
+      <span id="slide-section" class="meta-sec">—</span>
+      <span id="slide-counter" class="meta-count">01 / 152</span>
+    </div>
+    <button id="btn-next" class="btn-nav" aria-label="التالي">›</button>
+  </div>
+</footer>
+
+<aside id="overview" class="overview" hidden>
+  <div class="overview-head">
+    <h2>الفصول</h2>
+    <button id="overview-close" class="btn-ghost">إغلاق</button>
+  </div>
+  <div id="overview-list" class="overview-list"></div>
+</aside>
+
+<aside id="info" class="overview" hidden>
+  <div class="overview-head">
+    <h2>حول العرض</h2>
+    <button id="info-close" class="btn-ghost">إغلاق</button>
+  </div>
+  <div class="info-body">
+    <p>عرض تفاعلي لمؤسسة <strong>نفس</strong> (اسم مبدئي) ولمنصتها الأولى.</p>
+    <p>يغطي كامل وثيقة <code>final readme.txt</code>: المفهوم، الرؤية، القيم، المنصة، الخصوصية، التقنية، الأمن، الأعمال، البحث، التعليم، الشراكات، وخريطة الطريق.</p>
+    <p class="hint">استخدم ← → للتنقل · <kbd>Home</kbd> للأول · <kbd>End</kbd> للأخير · <kbd>O</kbd> للفصول.</p>
+  </div>
+</aside>
+
+<script src="slides/data/slides.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
