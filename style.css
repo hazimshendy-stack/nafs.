@@ -1,40 +1,30 @@
-/* ================================================================
-   نفس — Nafs · Design System
-   Font: Tajawal · Palette: Black + Green + White
-   ================================================================ */
-
+/* ============================================================
+   نفس — Design System · Tajawal · Black + Green
+   ============================================================ */
 :root {
   --black: #0a0a0a;
-  --black-2: #111111;
+  --black-2: #111;
   --black-3: #1a1a1a;
   --line: #262626;
   --line-soft: #1f1f1f;
-
   --green: #00ff88;
   --green-dark: #00cc6a;
   --green-line: rgba(0, 255, 136, 0.35);
   --green-glow: rgba(0, 255, 136, 0.15);
-
-  --white: #ffffff;
+  --white: #fff;
   --text: #ededed;
   --text-dim: #9a9a9a;
   --text-mute: #6e6e6e;
-
   --radius: 14px;
   --radius-sm: 10px;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
-
   --font: "Tajawal", system-ui, -apple-system, "Segoe UI", sans-serif;
   --dur: 0.4s;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Callout variants */
   --c-info: #5b8def;
   --c-warn: #e5a400;
   --c-danger: #e5484d;
   --c-success: #00c271;
 }
-
 *,
 *::before,
 *::after {
@@ -54,7 +44,6 @@ body {
   flex-direction: column;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 button {
   font-family: inherit;
@@ -64,9 +53,7 @@ button {
   color: var(--black);
 }
 
-/* ================================================================
-     TOPBAR
-     ================================================================ */
+/* ===== TOPBAR ===== */
 .topbar {
   position: sticky;
   top: 0;
@@ -135,9 +122,7 @@ button {
   box-shadow: 0 0 12px var(--green-glow);
 }
 
-/* ================================================================
-     DECK HOST
-     ================================================================ */
+/* ===== DECK HOST ===== */
 .deck-host {
   flex: 1;
   max-width: 1400px;
@@ -147,9 +132,7 @@ button {
   outline: none;
 }
 
-/* ================================================================
-     PRESENTATION ROOT
-     ================================================================ */
+/* ===== PRESENTATION ROOT ===== */
 .nfs-root {
   font-family: inherit;
   color: inherit;
@@ -160,18 +143,14 @@ button {
   min-height: 60vh;
 }
 
-/* ================================================================
-     SLIDE BASE
-     ================================================================ */
+/* ===== SLIDE BASE ===== */
 .nfs-slide {
   display: none;
   animation: nfsFade 0.45s var(--ease);
-  padding: 0;
 }
 .nfs-slide.is-active {
   display: block;
 }
-
 @keyframes nfsFade {
   from {
     opacity: 0;
@@ -182,7 +161,6 @@ button {
     transform: translateY(0);
   }
 }
-
 .nfs-slide-head {
   display: flex;
   justify-content: flex-start;
@@ -194,11 +172,9 @@ button {
   font-variant-numeric: tabular-nums;
   letter-spacing: 1px;
 }
-
 .nfs-slide-body {
   max-width: 1100px;
 }
-
 .nfs-subtitle {
   display: inline-block;
   font-size: 12px;
@@ -221,7 +197,6 @@ button {
   transform: translateY(-50%);
   box-shadow: 0 0 8px var(--green-glow);
 }
-
 .nfs-title {
   font-size: clamp(26px, 3.8vw, 48px);
   font-weight: 900;
@@ -230,17 +205,12 @@ button {
   letter-spacing: -0.4px;
   margin: 0 0 22px;
 }
-
 .nfs-slide--cover .nfs-title,
 .nfs-slide--closing .nfs-title {
   font-size: clamp(34px, 5.4vw, 68px);
 }
 
-/* ================================================================
-     SLIDE TYPES
-     ================================================================ */
-
-/* Cover */
+/* ===== SLIDE TYPES ===== */
 .nfs-slide--cover {
   padding-top: 40px;
 }
@@ -255,8 +225,6 @@ button {
   margin-top: 34px;
   max-width: 600px;
 }
-
-/* Section */
 .nfs-slide--section {
   min-height: 44vh;
   display: none;
@@ -269,23 +237,18 @@ button {
 .nfs-slide--section.is-active {
   display: flex;
 }
-
-/* Closing */
 .nfs-slide--closing {
   text-align: start;
   padding-top: 30px;
 }
 
-/* ================================================================
-     CONTENT ELEMENTS
-     ================================================================ */
+/* ===== CONTENT ELEMENTS ===== */
 .nfs-slide-body > * {
   margin-bottom: 18px;
 }
 .nfs-slide-body > *:last-child {
   margin-bottom: 0;
 }
-
 .nfs-text {
   font-size: clamp(15px, 1.35vw, 19px);
   line-height: 1.85;
@@ -293,7 +256,6 @@ button {
   margin: 0;
   max-width: 1000px;
 }
-
 .nfs-list {
   list-style: none;
   padding: 0;
@@ -323,9 +285,7 @@ button {
   box-shadow: 0 0 8px var(--green-glow);
 }
 
-/* ================================================================
-     TABLE
-     ================================================================ */
+/* ===== TABLE ===== */
 .nfs-table-wrap {
   overflow-x: auto;
   border: 1px solid var(--line);
@@ -363,9 +323,7 @@ button {
   background: var(--black-3);
 }
 
-/* ================================================================
-     DIAGRAM
-     ================================================================ */
+/* ===== DIAGRAM ===== */
 .nfs-diagram {
   display: flex;
   flex-direction: column;
@@ -383,13 +341,11 @@ button {
   color: var(--text);
   padding: 2px 0;
   white-space: pre;
-  font-family: "Tajawal", ui-monospace, monospace;
+  font-family: var(--font);
   letter-spacing: 0.3px;
 }
 
-/* ================================================================
-     QUOTE
-     ================================================================ */
+/* ===== QUOTE ===== */
 .nfs-quote {
   margin: 0;
   padding: 16px 24px 16px 0;
@@ -404,9 +360,7 @@ button {
   text-shadow: 0 0 18px var(--green-glow);
 }
 
-/* ================================================================
-     CALLOUT
-     ================================================================ */
+/* ===== CALLOUT ===== */
 .nfs-callout {
   padding: 14px 18px;
   border-radius: var(--radius);
@@ -434,9 +388,7 @@ button {
   background: rgba(0, 194, 113, 0.09);
 }
 
-/* ================================================================
-     NAV (Prev / Next only — NO DOTS)
-     ================================================================ */
+/* ===== NAV (Prev / Next) ===== */
 .nfs-nav {
   display: flex;
   align-items: center;
@@ -467,15 +419,13 @@ button {
   cursor: not-allowed;
 }
 
-/* إخفاء الـdots إن وُجدت لأي سبب */
+/* ===== إخفاء النقاط تمامًا ===== */
 .nfs-dots,
 .nfs-dot {
   display: none !important;
 }
 
-/* ================================================================
-     OVERVIEW (الفصول)
-     ================================================================ */
+/* ===== OVERVIEW (الفصول) ===== */
 .overview {
   position: fixed;
   inset: 0;
@@ -499,8 +449,6 @@ button {
   font-weight: 800;
   margin: 0;
 }
-
-/* الأقسام */
 .overview-list {
   max-width: 1200px;
   margin: 0 auto;
@@ -508,14 +456,12 @@ button {
   flex-direction: column;
   gap: 32px;
 }
-
 .ov-section {
   display: flex;
   align-items: baseline;
   gap: 14px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line);
-  margin-bottom: 0;
 }
 .ov-sec-num {
   font-size: 22px;
@@ -539,15 +485,12 @@ button {
   padding: 3px 9px;
   border-radius: 999px;
 }
-
-/* شبكة الشرائح داخل كل قسم */
 .ov-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 8px;
   margin-top: 14px;
 }
-
 .ov-item {
   text-align: start;
   background: var(--black-2);
@@ -567,8 +510,8 @@ button {
   border-color: var(--green);
   color: var(--white);
   transform: translateY(-2px);
-  box-shadow: 0 0 18px var(--green-glow);
   background: var(--black-3);
+  box-shadow: 0 0 18px var(--green-glow);
 }
 .ov-item .ov-num {
   font-size: 10px;
@@ -580,8 +523,6 @@ button {
   font-weight: 600;
   line-height: 1.35;
 }
-
-/* Info panel */
 .info-body {
   max-width: 760px;
   margin: 0 auto;
@@ -599,9 +540,7 @@ button {
   font-family: inherit;
 }
 
-/* ================================================================
-     RESPONSIVE
-     ================================================================ */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 720px) {
   .brand-tag {
     display: none;
@@ -609,7 +548,6 @@ button {
   .deck-host {
     padding-bottom: 100px;
   }
-
   .nfs-title {
     font-size: 24px;
   }
@@ -617,7 +555,6 @@ button {
   .nfs-slide--closing .nfs-title {
     font-size: 32px;
   }
-
   .nfs-slide--section {
     padding-inline-start: 20px;
     min-height: 36vh;
@@ -626,7 +563,6 @@ button {
     font-size: 17px;
     padding-inline-start: 16px;
   }
-
   .nfs-nav {
     flex-direction: column-reverse;
     gap: 10px;
@@ -634,14 +570,12 @@ button {
   .nfs-btn {
     width: 100%;
   }
-
   .nfs-diagram {
     padding: 16px;
   }
   .nfs-diag-line {
     font-size: 12px;
   }
-
   .ov-grid {
     grid-template-columns: 1fr;
   }
@@ -657,20 +591,12 @@ button {
     font-size: 18px;
   }
 }
-
-/* ================================================================
-     REDUCED MOTION
-     ================================================================ */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
 }
-
-/* ================================================================
-     FOCUS
-     ================================================================ */
 :focus-visible {
   outline: 2px solid var(--green);
   outline-offset: 3px;

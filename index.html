@@ -64,65 +64,51 @@
 
     <script src="slides/data/slides.js"></script>
     <script>
-      /* تشغيل العرض */
       (function () {
         "use strict";
         if (!window.Presentation) {
-          console.error("Presentation API غير موجود");
+          console.error("Presentation API مفقود");
           return;
         }
 
-        /* ===== الأقسام المنطقية (مبنية على محتوى الشرائح) ===== */
+        /* ===== الأقسام ===== */
         var SECTIONS = [
           { n: "01", t: "المقدمة", from: 1, to: 8 },
           { n: "02", t: "المشكلة والنماذج", from: 9, to: 17 },
           { n: "03", t: "الخصوصية والهوية", from: 18, to: 35 },
-          { n: "04", t: "المطابقة واختيار المعالج", from: 36, to: 42 },
-          { n: "05", t: "الجلسات والطوارئ والأزمات", from: 43, to: 52 },
-          { n: "06", t: "التجربة والتصميم", from: 53, to: 64 },
-          { n: "07", t: "المؤسسة والمنظومة", from: 65, to: 74 },
-          { n: "08", t: "النموذج القانوني والاقتصادي", from: 75, to: 90 },
-          { n: "09", t: "الفريق والبحث والتسويق", from: 91, to: 100 },
-          { n: "10", t: "التقنية والأمن", from: 101, to: 115 },
-          { n: "11", t: "المخاطر والتنفيذ", from: 116, to: 130 },
-          { n: "12", t: "المؤشرات والخطة", from: 131, to: 146 },
-          { n: "13", t: "العلامة والقانون", from: 147, to: 155 },
+          { n: "04", t: "اختيار المعالج والمطابقة", from: 36, to: 42 },
+          { n: "05", t: "الجلسات والأزمات", from: 43, to: 52 },
+          { n: "06", t: "التجربة والرحلات", from: 53, to: 64 },
+          { n: "07", t: "المنظومة المؤسسية", from: 65, to: 74 },
+          { n: "08", t: "القانوني والاقتصادي", from: 75, to: 90 },
+          { n: "09", t: "التعليم والبحث والتسويق", from: 91, to: 100 },
+          { n: "10", t: "التقنية والأمن والـAI", from: 101, to: 115 },
+          { n: "11", t: "المخاطر والتفكير النقدي", from: 116, to: 130 },
+          { n: "12", t: "المؤشرات وخطة التنفيذ", from: 131, to: 146 },
+          { n: "13", t: "العلامة والجاهزية القانونية", from: 147, to: 155 },
           { n: "14", t: "الخلاصة", from: 156, to: 159 },
         ];
 
-        /* ===== تشغيل العرض (بدون نقاط) ===== */
+        /* ===== التشغيل — بدون نقاط ===== */
         var api = window.Presentation.mount("deck-host", {
           showDots: false,
           startAt: 1,
         });
-
         if (!api) return;
 
-        /* ===== DOM ===== */
         var ov = document.getElementById("overview");
         var ovList = document.getElementById("overview-list");
         var info = document.getElementById("info");
         var slides = window.Presentation.slides;
-
-        function findSection(id) {
-          for (var i = 0; i < SECTIONS.length; i++) {
-            if (id >= SECTIONS[i].from && id <= SECTIONS[i].to)
-              return SECTIONS[i];
-          }
-          return null;
-        }
 
         function closeAll() {
           ov.hidden = true;
           info.hidden = true;
         }
 
-        /* ===== بناء لوحة الفصول ===== */
         function buildOverview() {
           ovList.innerHTML = "";
-
           SECTIONS.forEach(function (sec) {
-            /* رأس القسم */
             var head = document.createElement("div");
             head.className = "ov-section";
             head.innerHTML =
@@ -139,11 +125,10 @@
               "</span>";
             ovList.appendChild(head);
 
-            /* شبكة الشرائح */
             var grid = document.createElement("div");
             grid.className = "ov-grid";
 
-            slides.forEach(function (s, i) {
+            slides.forEach(function (s) {
               if (s.id < sec.from || s.id > sec.to) return;
               var b = document.createElement("button");
               b.type = "button";
@@ -165,13 +150,11 @@
             ovList.appendChild(grid);
           });
         }
-
         function openOverview() {
           buildOverview();
           ov.hidden = false;
         }
 
-        /* ===== الأزرار ===== */
         document
           .getElementById("btn-overview")
           .addEventListener("click", function () {
@@ -191,17 +174,17 @@
           .getElementById("info-close")
           .addEventListener("click", closeAll);
 
-        /* ===== Keyboard shortcuts ===== */
         document.addEventListener("keydown", function (e) {
           if (e.key === "Escape") closeAll();
-          else if (e.key === "o" || e.key === "O") {
-            if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+          else if (
+            (e.key === "o" || e.key === "O") &&
+            !/INPUT|TEXTAREA/.test((e.target || {}).tagName)
+          ) {
             info.hidden = true;
             ov.hidden ? openOverview() : (ov.hidden = true);
           }
         });
 
-        /* ===== Service Worker ===== */
         if ("serviceWorker" in navigator) {
           window.addEventListener("load", function () {
             navigator.serviceWorker.register("sw.js").catch(function () {});
