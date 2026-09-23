@@ -1,3 +1,6 @@
-# Notes
+# Production Notes
 
-Static · No backend · HTTPS or localhost for SW.
+- Static بالكامل.
+- لا Backend، لا Database.
+- Service Worker يحتاج HTTPS أو localhost.
+- متوافق مع أي Static hosting.

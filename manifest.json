@@ -1,7 +1,7 @@
 {
-  "name": "نفس · Nafs",
+  "name": "نفس · Nafs Presentation",
   "short_name": "نفس",
-  "description": "عرض مؤسسي تفاعلي",
+  "description": "عرض مؤسسي تفاعلي لمؤسسة نفس",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "any",

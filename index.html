@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#0A0A0A" />
-<meta name="description" content="نفس — عرض مؤسسي تفاعلي لمؤسسة الصحة النفسية" />
-<title>نفس · Nafs</title>
+<meta name="description" content="نفس — عرض مؤسسي تفاعلي" />
+<title>نفس · Nafs — Presentation</title>
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
 <link rel="apple-touch-icon" href="assets/icons/icon-192.svg" />
@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
 <header class="topbar">
   <div class="brand">
     <span class="brand-mark">ن</span>
@@ -22,29 +23,17 @@
     <span class="brand-tag">Working Name</span>
   </div>
   <nav class="topnav">
-    <button id="btn-overview" class="btn-ghost">الفصول</button>
-    <button id="btn-info" class="btn-ghost">حول</button>
+    <button id="btn-overview" class="btn-ghost" type="button">الفصول</button>
+    <button id="btn-info" class="btn-ghost" type="button">حول</button>
   </nav>
 </header>
 
-<main id="deck" class="deck" aria-live="polite"></main>
-
-<footer class="bottombar">
-  <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
-  <div class="nav-row">
-    <button id="btn-prev" class="btn-nav" aria-label="السابق">‹</button>
-    <div class="meta">
-      <span id="slide-section" class="meta-sec">—</span>
-      <span id="slide-counter" class="meta-count">01 / 150</span>
-    </div>
-    <button id="btn-next" class="btn-nav" aria-label="التالي">›</button>
-  </div>
-</footer>
+<main id="deck-host" class="deck-host" aria-live="polite"></main>
 
 <aside id="overview" class="overview" hidden>
   <div class="overview-head">
     <h2>الفصول</h2>
-    <button id="overview-close" class="btn-ghost">إغلاق</button>
+    <button id="overview-close" class="btn-ghost" type="button">إغلاق</button>
   </div>
   <div id="overview-list" class="overview-list"></div>
 </aside>
@@ -52,16 +41,73 @@
 <aside id="info" class="overview" hidden>
   <div class="overview-head">
     <h2>حول العرض</h2>
-    <button id="info-close" class="btn-ghost">إغلاق</button>
+    <button id="info-close" class="btn-ghost" type="button">إغلاق</button>
   </div>
   <div class="info-body">
     <p>عرض تفاعلي لمؤسسة <strong>نفس</strong> (اسم مبدئي).</p>
-    <p>150 شريحة · 10 أقسام · Tajawal · Black + Green.</p>
-    <p>← → للتنقل · <kbd>Home</kbd>/<kbd>End</kbd> · <kbd>O</kbd> للفصول · Swipe على الموبايل.</p>
+    <p>150 شريحة · Tajawal · Black + Green.</p>
+    <p>← → للتنقل · <kbd>Home</kbd>/<kbd>End</kbd> · Swipe على الموبايل.</p>
   </div>
 </aside>
 
 <script src="slides/data/slides.js"></script>
-<script src="script.js"></script>
+<script>
+/* تشغيل العرض بعد تحميل البيانات */
+(function(){
+  'use strict';
+  if (!window.Presentation) return;
+
+  var api = window.Presentation.mount('deck-host', { showDots: true });
+
+  /* تحديث URL hash مع كل انتقال */
+  var origGoTo = api && api.goTo;
+
+  /* زر الفصول */
+  var ov = document.getElementById('overview');
+  var ovList = document.getElementById('overview-list');
+  var info = document.getElementById('info');
+
+  function closeAll(){ ov.hidden = true; info.hidden = true; }
+
+  function buildOverview(){
+    ovList.innerHTML = '';
+    window.Presentation.slides.forEach(function(s, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ov-item';
+      b.innerHTML =
+        '<span class="ov-num">' + String(i+1).padStart(2,'0') + '</span>' +
+        '<span class="ov-t">' + s.title + '</span>';
+      b.addEventListener('click', function(){
+        closeAll();
+        if (api) api.goTo(i+1);
+      });
+      ovList.appendChild(b);
+    });
+  }
+  function openOverview(){ buildOverview(); ov.hidden = false; }
+
+  document.getElementById('btn-overview').addEventListener('click', function(){
+    info.hidden = true;
+    ov.hidden ? openOverview() : (ov.hidden = true);
+  });
+  document.getElementById('btn-info').addEventListener('click', function(){
+    ov.hidden = true;
+    info.hidden = !info.hidden;
+  });
+  document.getElementById('overview-close').addEventListener('click', closeAll);
+  document.getElementById('info-close').addEventListener('click', closeAll);
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeAll();
+  });
+
+  /* تسجيل Service Worker */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+})();
+</script>
 </body>
 </html>

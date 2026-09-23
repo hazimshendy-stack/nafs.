@@ -1,2 +1,3 @@
-# Deploy
-Static hosting · GitHub Pages.
+# Deployment
+
+Static hosting — GitHub Pages.

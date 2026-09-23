@@ -1,3 +1,6 @@
 # GitHub Pages
 
-Settings → Pages → Source: GitHub Actions. ادفع إلى main أو master.
+1. ارفع إلى GitHub.
+2. Settings → Pages → Source: **GitHub Actions**.
+3. ادفع إلى `main` أو `master`.
+4. الرابط: `https://<user>.github.io/<repo>/`.
