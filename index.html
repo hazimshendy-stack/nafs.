@@ -1,113 +1,213 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#0A0A0A" />
-<meta name="description" content="نفس — عرض مؤسسي تفاعلي" />
-<title>نفس · Nafs — Presentation</title>
-<link rel="manifest" href="manifest.json" />
-<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
-<link rel="apple-touch-icon" href="assets/icons/icon-192.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0A0A0A" />
+    <meta name="description" content="نفس — عرض مؤسسي تفاعلي" />
+    <title>نفس · Nafs — Presentation</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">ن</span>
+        <span class="brand-name">نفس</span>
+        <span class="brand-tag">Working Name</span>
+      </div>
+      <nav class="topnav">
+        <button id="btn-overview" class="btn-ghost" type="button">
+          الفصول
+        </button>
+        <button id="btn-info" class="btn-ghost" type="button">حول</button>
+      </nav>
+    </header>
 
-<header class="topbar">
-  <div class="brand">
-    <span class="brand-mark">ن</span>
-    <span class="brand-name">نفس</span>
-    <span class="brand-tag">Working Name</span>
-  </div>
-  <nav class="topnav">
-    <button id="btn-overview" class="btn-ghost" type="button">الفصول</button>
-    <button id="btn-info" class="btn-ghost" type="button">حول</button>
-  </nav>
-</header>
+    <main id="deck-host" class="deck-host" aria-live="polite"></main>
 
-<main id="deck-host" class="deck-host" aria-live="polite"></main>
+    <aside id="overview" class="overview" hidden>
+      <div class="overview-head">
+        <h2>الفصول</h2>
+        <button id="overview-close" class="btn-ghost" type="button">
+          إغلاق
+        </button>
+      </div>
+      <div id="overview-list" class="overview-list"></div>
+    </aside>
 
-<aside id="overview" class="overview" hidden>
-  <div class="overview-head">
-    <h2>الفصول</h2>
-    <button id="overview-close" class="btn-ghost" type="button">إغلاق</button>
-  </div>
-  <div id="overview-list" class="overview-list"></div>
-</aside>
+    <aside id="info" class="overview" hidden>
+      <div class="overview-head">
+        <h2>حول العرض</h2>
+        <button id="info-close" class="btn-ghost" type="button">إغلاق</button>
+      </div>
+      <div class="info-body">
+        <p>عرض تفاعلي لمؤسسة <strong>نفس</strong> (اسم مبدئي).</p>
+        <p>159 شريحة · Tajawal · Black + Green.</p>
+        <p>
+          ← → للتنقل · <kbd>Home</kbd>/<kbd>End</kbd> · Swipe على الموبايل ·
+          <kbd>O</kbd> للفصول.
+        </p>
+      </div>
+    </aside>
 
-<aside id="info" class="overview" hidden>
-  <div class="overview-head">
-    <h2>حول العرض</h2>
-    <button id="info-close" class="btn-ghost" type="button">إغلاق</button>
-  </div>
-  <div class="info-body">
-    <p>عرض تفاعلي لمؤسسة <strong>نفس</strong> (اسم مبدئي).</p>
-    <p>150 شريحة · Tajawal · Black + Green.</p>
-    <p>← → للتنقل · <kbd>Home</kbd>/<kbd>End</kbd> · Swipe على الموبايل.</p>
-  </div>
-</aside>
+    <script src="slides/data/slides.js"></script>
+    <script>
+      /* تشغيل العرض */
+      (function () {
+        "use strict";
+        if (!window.Presentation) {
+          console.error("Presentation API غير موجود");
+          return;
+        }
 
-<script src="slides/data/slides.js"></script>
-<script>
-/* تشغيل العرض بعد تحميل البيانات */
-(function(){
-  'use strict';
-  if (!window.Presentation) return;
+        /* ===== الأقسام المنطقية (مبنية على محتوى الشرائح) ===== */
+        var SECTIONS = [
+          { n: "01", t: "المقدمة", from: 1, to: 8 },
+          { n: "02", t: "المشكلة والنماذج", from: 9, to: 17 },
+          { n: "03", t: "الخصوصية والهوية", from: 18, to: 35 },
+          { n: "04", t: "المطابقة واختيار المعالج", from: 36, to: 42 },
+          { n: "05", t: "الجلسات والطوارئ والأزمات", from: 43, to: 52 },
+          { n: "06", t: "التجربة والتصميم", from: 53, to: 64 },
+          { n: "07", t: "المؤسسة والمنظومة", from: 65, to: 74 },
+          { n: "08", t: "النموذج القانوني والاقتصادي", from: 75, to: 90 },
+          { n: "09", t: "الفريق والبحث والتسويق", from: 91, to: 100 },
+          { n: "10", t: "التقنية والأمن", from: 101, to: 115 },
+          { n: "11", t: "المخاطر والتنفيذ", from: 116, to: 130 },
+          { n: "12", t: "المؤشرات والخطة", from: 131, to: 146 },
+          { n: "13", t: "العلامة والقانون", from: 147, to: 155 },
+          { n: "14", t: "الخلاصة", from: 156, to: 159 },
+        ];
 
-  var api = window.Presentation.mount('deck-host', { showDots: true });
+        /* ===== تشغيل العرض (بدون نقاط) ===== */
+        var api = window.Presentation.mount("deck-host", {
+          showDots: false,
+          startAt: 1,
+        });
 
-  /* تحديث URL hash مع كل انتقال */
-  var origGoTo = api && api.goTo;
+        if (!api) return;
 
-  /* زر الفصول */
-  var ov = document.getElementById('overview');
-  var ovList = document.getElementById('overview-list');
-  var info = document.getElementById('info');
+        /* ===== DOM ===== */
+        var ov = document.getElementById("overview");
+        var ovList = document.getElementById("overview-list");
+        var info = document.getElementById("info");
+        var slides = window.Presentation.slides;
 
-  function closeAll(){ ov.hidden = true; info.hidden = true; }
+        function findSection(id) {
+          for (var i = 0; i < SECTIONS.length; i++) {
+            if (id >= SECTIONS[i].from && id <= SECTIONS[i].to)
+              return SECTIONS[i];
+          }
+          return null;
+        }
 
-  function buildOverview(){
-    ovList.innerHTML = '';
-    window.Presentation.slides.forEach(function(s, i){
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'ov-item';
-      b.innerHTML =
-        '<span class="ov-num">' + String(i+1).padStart(2,'0') + '</span>' +
-        '<span class="ov-t">' + s.title + '</span>';
-      b.addEventListener('click', function(){
-        closeAll();
-        if (api) api.goTo(i+1);
-      });
-      ovList.appendChild(b);
-    });
-  }
-  function openOverview(){ buildOverview(); ov.hidden = false; }
+        function closeAll() {
+          ov.hidden = true;
+          info.hidden = true;
+        }
 
-  document.getElementById('btn-overview').addEventListener('click', function(){
-    info.hidden = true;
-    ov.hidden ? openOverview() : (ov.hidden = true);
-  });
-  document.getElementById('btn-info').addEventListener('click', function(){
-    ov.hidden = true;
-    info.hidden = !info.hidden;
-  });
-  document.getElementById('overview-close').addEventListener('click', closeAll);
-  document.getElementById('info-close').addEventListener('click', closeAll);
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') closeAll();
-  });
+        /* ===== بناء لوحة الفصول ===== */
+        function buildOverview() {
+          ovList.innerHTML = "";
 
-  /* تسجيل Service Worker */
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function(){
-      navigator.serviceWorker.register('sw.js').catch(function(){});
-    });
-  }
-})();
-</script>
-</body>
+          SECTIONS.forEach(function (sec) {
+            /* رأس القسم */
+            var head = document.createElement("div");
+            head.className = "ov-section";
+            head.innerHTML =
+              '<span class="ov-sec-num">' +
+              sec.n +
+              "</span>" +
+              '<span class="ov-sec-title">' +
+              sec.t +
+              "</span>" +
+              '<span class="ov-sec-range">' +
+              sec.from +
+              "–" +
+              sec.to +
+              "</span>";
+            ovList.appendChild(head);
+
+            /* شبكة الشرائح */
+            var grid = document.createElement("div");
+            grid.className = "ov-grid";
+
+            slides.forEach(function (s, i) {
+              if (s.id < sec.from || s.id > sec.to) return;
+              var b = document.createElement("button");
+              b.type = "button";
+              b.className = "ov-item";
+              b.innerHTML =
+                '<span class="ov-num">' +
+                String(s.id).padStart(3, "0") +
+                "</span>" +
+                '<span class="ov-t">' +
+                s.title +
+                "</span>";
+              b.addEventListener("click", function () {
+                closeAll();
+                api.goTo(s.id);
+              });
+              grid.appendChild(b);
+            });
+
+            ovList.appendChild(grid);
+          });
+        }
+
+        function openOverview() {
+          buildOverview();
+          ov.hidden = false;
+        }
+
+        /* ===== الأزرار ===== */
+        document
+          .getElementById("btn-overview")
+          .addEventListener("click", function () {
+            info.hidden = true;
+            ov.hidden ? openOverview() : (ov.hidden = true);
+          });
+        document
+          .getElementById("btn-info")
+          .addEventListener("click", function () {
+            ov.hidden = true;
+            info.hidden = !info.hidden;
+          });
+        document
+          .getElementById("overview-close")
+          .addEventListener("click", closeAll);
+        document
+          .getElementById("info-close")
+          .addEventListener("click", closeAll);
+
+        /* ===== Keyboard shortcuts ===== */
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closeAll();
+          else if (e.key === "o" || e.key === "O") {
+            if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+            info.hidden = true;
+            ov.hidden ? openOverview() : (ov.hidden = true);
+          }
+        });
+
+        /* ===== Service Worker ===== */
+        if ("serviceWorker" in navigator) {
+          window.addEventListener("load", function () {
+            navigator.serviceWorker.register("sw.js").catch(function () {});
+          });
+        }
+      })();
+    </script>
+  </body>
 </html>
